@@ -1,26 +1,39 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  StatusBar,
+  Pressable,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-export default function Navbar() {
+export default function Navbar({ whichScreen }) {
   return (
-    <TouchableOpacity style={styles.navbarContainer}>
+    <View style={styles.navbarContainer}>
       <View style={styles.navbar}>
-        <Text style={styles.navTitle}>Shop D</Text>
-        <Icon name="cog" size={40} color="white" />
+        <Text style={styles.navTitle}>Donald's</Text>
+        <TouchableOpacity>
+          <Pressable onPress={() => whichScreen("settings")}>
+            <Icon name="cog" size={40} color="white" />
+          </Pressable>
+        </TouchableOpacity>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   navbarContainer: {
     backgroundColor: "orange",
-    padding: 10,
+    paddingVertical: 8,
+    paddingTop: 30,
   },
   navbar: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingHorizontal: 20,
   },
   navTitle: {
     fontSize: 25,

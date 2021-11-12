@@ -1,14 +1,34 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-export default function Footer() {
+export default function Footer({ whichScreen, cartLength }) {
   return (
-    <TouchableOpacity style={styles.footerContainer}>
+    <View style={styles.footerContainer}>
       <View style={styles.navbar}>
-        <Icon name="home" size={40} color="white" />
-        <Icon name="shopping-cart" size={40} color="white" />
+        <Pressable
+          onPress={() => {
+            whichScreen("home");
+          }}
+        >
+          <Icon name="home" size={40} color="white" />
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            whichScreen("cart");
+          }}
+          style={{ flexDirection: "row" }}
+        >
+          <Icon name="shopping-cart" size={40} color="white" />
+          <Text style={{ color: "white" }}>{cartLength}</Text>
+        </Pressable>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
@@ -22,6 +42,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 100,
+    paddingHorizontal: 10,
   },
 });

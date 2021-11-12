@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 //components
 import SignUp from "./user/SignUp";
 import Login from "./user/Login";
@@ -7,7 +8,7 @@ import Button from "./utilities/Button";
 import UserRedirect from "./utilities/UserRedirect";
 import Error from "./utilities/Error";
 
-export default function LogOn() {
+export default function LogOn({ setScreen }) {
   const [errors, setErrors] = useState([]);
   const [isRegistered, setIsRegistered] = useState(true);
 
@@ -37,6 +38,7 @@ export default function LogOn() {
         );
       }
     }
+
     //Validate email
     if (infos.email && infos.email !== "") {
       const isValidEmail = validateEmail(infos.email);
@@ -46,7 +48,11 @@ export default function LogOn() {
     if (infos.confirmPassword) {
       validatePassword(foundErrors, infos.password, infos.confirmPassword);
     }
+
     setErrors(foundErrors);
+    if (foundErrors.length === 0) {
+      setScreen("home");
+    }
     setTimeout(() => setErrors([]), 10000);
     return errors.length === 0 ? false : true;
   };
@@ -54,10 +60,13 @@ export default function LogOn() {
   if (isRegistered) {
     return (
       <View style={styles.login}>
+        <Text style={styles.heading}>
+          <Icon name="shopping-cart" style={styles.headingIcon} />
+          Donald's
+        </Text>
         <Text style={styles.heading}>Login</Text>
         <Error errors={errors} />
         <Login handleValidation={handleValidation} />
-
         <UserRedirect
           question="Don't have an account? "
           recommendation="Sign Up"
@@ -92,6 +101,10 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 50,
-    margin: 10,
+    margin: 30,
+  },
+  headingIcon: {
+    fontSize: 50,
+    margin: 5,
   },
 });
